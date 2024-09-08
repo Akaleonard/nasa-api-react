@@ -1,5 +1,5 @@
-import NasaImage from './components/nasaImage';
 import './App.css';
+import NasaImage from './components/NasaImage';
 
 function App() {
   return (
@@ -10,5 +10,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
