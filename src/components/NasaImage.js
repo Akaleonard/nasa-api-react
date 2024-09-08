@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import NasaImageCard from './NasaImageCard';
 
 const NasaImage = () => {
     const [data, setData] = useState('');
@@ -20,11 +21,11 @@ const NasaImage = () => {
         fetchData();
     }, [])
     return (
-        <div>
-            <h1>{data.title}</h1>
-            <p>{data.explanation}</p>
-            <img src={data.url} alt=""/>
-        </div>
+        <NasaImageCard
+            title={data.title}
+            explanation={data.explanation}
+            url={data.url}
+        />
     )
 }
 
