@@ -1,36 +1,35 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useState } from 'react';
+import useNasaAPI from '../hooks/useNasaAPI';
 import NasaImageCard from './NasaImageCard';
 
 const NasaImage = () => {
-    const [data, setData] = useState('');
-    const [loading, setLoading] = useState(true);
+    const [date, setDate] = useState('');
+    const { data, loading } = useNasaAPI(date)
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                
-                const response = await axios.get(
-                    'https://api.nasa.gov/planetary/apod?api_key=wk6dcmIbz8SaAQ4dPaLreTSsVdZABA93O7QSgImy'
-                )
-
-                setData(response.data);
-            } catch (error) {
-                console.error(error);
-            } finally {
-                setLoading(false);
-            }
-        }
-        fetchData();
-    }, [])
+    const handleSubmit = (e) => {
+        e.preventDefault();
+    } 
     return (
         <>
             {loading && <p>Loading...</p>}
-            <NasaImageCard
-                title={data.title}
-                explanation={data.explanation}
-                url={data.url}
-            />
+
+            {!loading && data && (
+                <>
+                    <form onSubmit={handleSubmit}>
+                        <input 
+                            type="date"
+                            value={date}
+                            onChange={e => setDate(e.target.value)}
+                        />
+                        <button type="submit">Search</button>
+                        </form>
+                    <NasaImageCard
+                        title={data.title}
+                        explanation={data.explanation}
+                        url={data.url}
+                    />
+                </>
+            )}
         </>
     )
 }
