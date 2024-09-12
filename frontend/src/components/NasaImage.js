@@ -41,7 +41,7 @@ const NasaImage = () => {
                             onChange={e => setDate(e.target.value)}
                         />
                         <button type="submit">Search</button>
-                        </form>
+                    </form>
                     <NasaImageCard
                         title={data.title}
                         explanation={data.explanation}
